@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Request;
 
 class User extends Authenticatable
 {
@@ -42,6 +43,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public static function getAdmin()
+    {
+        $model =  self::select('users.*')
+        ->where('user_type','=',1)
+        ->where('is_delete','=',0);
+
+        if(!empty(Request::get('email'))){
+           $model = $model->where('email','like','%'.Request::get('email').'%');
+        }
+
+        if(!empty(Request::get('name'))){
+            $model = $model->where('name','=','%'.Request::get('name').'%');
+        }
+
+        if(!empty(Request::get('date'))){
+            $model = $model->where('created_at','=',Request::get('date'));
+        }
+
+
+        $model = $model->orderBy('id','desc')
+        ->paginate(1);
+
+        return $model;
+    }
+
     public static function getEmailSingle($email)
     {
         return self::where('email','=',$email)->first();
@@ -50,6 +77,11 @@ class User extends Authenticatable
     public static function getTokenSingle($remember_token)
     {
         return User::where('remember_token','=',$remember_token)->first();
+    }
+
+    public static function getSingle($id)
+    {
+        return self::where('id','=',$id)->first();
     }
 
 }

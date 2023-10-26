@@ -10,7 +10,7 @@
             <div class="card">
               @include('_message')
               <div class="card-header">
-                <h3 class="card-title">Admin action</h3>
+                <h3 class="card-title">Class List</h3>
                
               </div>
 
