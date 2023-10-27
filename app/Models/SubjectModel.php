@@ -15,13 +15,14 @@ class SubjectModel extends Model
 
     public static function getRecord()
     {
-        $model = self::select('subject.*')
+        $model = self::select('subject.*','users.name as created_by_name')
       
-        ->where('is_delete','=',0);
+        ->join('users','users.id','subject.created_by')
+        ->where('subject.is_delete','=',0);
 
         if(!empty(Request::get('name'))){
             $model = $model->where('name','like','%'.Request::get('name').'%');
-         }
+        }
  
          if(!empty(Request::get('date'))){
              $model = $model->whereDate('subject.created_at','=',Request::get('created_date'));
@@ -43,6 +44,17 @@ class SubjectModel extends Model
     public static function getSingle($id)
     {
         return self::where('id','=',$id)->first();
+    }
+
+    public static function getSubject()
+    {
+        $model = self::select('subject.*','users.name as created_by_name')
+        ->join('users','users.id','subject.created_by')
+        ->where('subject.is_delete','=',0)
+        ->orderBy('subject.id','desc')
+        ->get(20);
+
+        return $model;
     }
 
 }

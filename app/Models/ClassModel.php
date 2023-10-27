@@ -40,5 +40,18 @@ class ClassModel extends Model
     {
         return self::where('id','=',$id)->first();
     }
+
+
+    public static function getClass()
+    {
+        $model = ClassModel::select('class.*','users.name as created_by_name')
+        ->join('users','users.id','class.created_by')
+        ->where('class.is_delete','=',0)
+        ->where('class.status','=',1)
+        ->orderBy('class.id','desc')
+        ->get(20);
+
+        return $model;
+    }
    
 }

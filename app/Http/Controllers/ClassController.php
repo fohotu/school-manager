@@ -32,6 +32,7 @@ class ClassController extends Controller
         $model->name=$request->name;
         $model->status=$request->status;
         $model->created_by = Auth::user()->id;
+        $model->is_delete = 0;
         $model->save();
      
         return redirect('admin/class/list')->with('success','Class successfully created');
