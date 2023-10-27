@@ -11,7 +11,7 @@
               @include('_message')
               <div class="card-header">
                 <h3 class="card-title">Class List</h3>
-                <a class="btn btn-primary float-right" href="{{ url('admin/class/add') }}">Add New</a>
+                <a class="btn btn-primary float-right" href="{{ url('admin/subject/add') }}">Add New</a>
                
               </div>
 
@@ -26,13 +26,23 @@
 
 
                     <div class="form-group col-md-3">
+                      <label for="exampleInputRounded0">Select Type</code></label>
+                      <select name="type" class="form-control">
+                        <option value="">Select Type</option>
+                        <option value="Theory">Theory</option>  
+                        <option value="Practical">Practical</option>  
+                      </select>  
+                    </div>
+
+
+                    <div class="form-group col-md-3">
                       <label for="exampleInputRounded0">Date</code></label>
                       <input type="date" name="date" value="{{ Request::get('date') }}" class="form-control rounded-0" id="exampleInputRounded0" placeholder=".rounded-0">
                    
                     </div>
                     <div class="form-group col-md-3">
                       <button style="margin-top:32px" type="submit" class="btn btn-primary">search</button>
-                      <a style="margin-top:32px" href="{{ url('admin/class/list') }}" class="btn btn-success">clear</a>
+                      <a style="margin-top:32px" href="{{ url('admin/subject/list') }}" class="btn btn-success">clear</a>
                     </div>
                 </div> 
               </form>
@@ -44,8 +54,8 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Name</th>
+                      <th>Type</th>
                       <th>Status</th>
-                      <th>Created By</th>
                       <th>Created Date</th>
                       <th>Action</th>
                     </tr>
@@ -59,10 +69,9 @@
                       <td>{{ $value->created_by_name }}</td>
                       <td>{{ date('d-m-Y H:i A',strtotime($value->created_at)) }}</td>
                       <td>
-                        <a href="{{ url('admin/class/edit/'.$value->id) }}" class="btn btn-primary">edit</a>
-                        <a href="{{ url('admin/class/delete/'.$value->id) }}" class="btn btn-danger">delete</a>
+                        <a href="{{ url('admin/subject/edit/'.$value->id) }}" class="btn btn-primary">edit</a>
+                        <a href="{{ url('admin/subject/delete/'.$value->id) }}" class="btn btn-danger">delete</a>
                       </td>
-              
                     </tr>
 
                     @endforeach

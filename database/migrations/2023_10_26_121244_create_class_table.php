@@ -17,6 +17,8 @@ class CreateClassTable extends Migration
             $table->id();
             $table->string('name');
             $table->tinyInteger('status');
+            $table->integer('created_by');
+            $table->tinyInteger('is_delete');
             $table->timestamps();
         });
     }

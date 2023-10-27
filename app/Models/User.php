@@ -64,7 +64,7 @@ class User extends Authenticatable
 
 
         $model = $model->orderBy('id','desc')
-        ->paginate(1);
+        ->paginate(20);
 
         return $model;
     }
