@@ -72,7 +72,7 @@ class ClassSubjectController extends Controller
     {
 
         $getRecord = ClassSubjectModel::getSingle($id);
-       
+        
         if(!empty($getRecord))
         {
             
@@ -88,6 +88,7 @@ class ClassSubjectController extends Controller
         {
             abort(404);
         }
+
     }
 
 
@@ -95,7 +96,7 @@ class ClassSubjectController extends Controller
     {
         
         ClassSubjectModel::deleteSubject($request->class_id);
-        
+
 
     }
 
