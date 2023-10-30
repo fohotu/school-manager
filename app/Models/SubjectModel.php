@@ -55,6 +55,7 @@ class SubjectModel extends Model
         ->get(20);
 
         return $model;
+        
     }
 
 }

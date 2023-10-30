@@ -20,14 +20,14 @@
               <form method="get" action="">
                 <div class="card-body row">
                     <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Name</label>
-                      <input type="text" name="name" value="{{ Request::get('name') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder=".rounded-0">
+                      <label for="exampleInputRounded0">Class Name</label>
+                      <input type="text" name="class_name" value="{{ Request::get('name') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder=".rounded-0">
                     </div>
 
 
                     <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Select Type</code></label>
-                      <select name="type" class="form-control">
+                      <label for="exampleInputRounded0">Subject Name</code></label>
+                      <select name="subject_name" class="form-control">
                         <option value="">Select Type</option>
                         <option value="Theory">Theory</option>  
                         <option value="Practical">Practical</option>  
@@ -53,11 +53,11 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Name</th>
-                      <th>Type</th>
+                      <th>Class Name</th>
+                      <th>Subject Name</th>
                       <th>Status</th>
-                      <th>Created Date</th>
                       <th>Created By</th>
+                      <th>Created Date</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -65,15 +65,15 @@
                     @foreach($getRecord as $value)
                     <tr>
                       <td>{{ $value->id }}</td>
-                      <td>{{ $value->name }}</td>
-                      <td>{{ $value->type }}</td>
+                      <td>{{ $value->class_name }}</td>
+                      <td>{{ $value->subject_name }}</td>
                       <td>{{ ($value->status) ? 'Active' : 'Inactive' }}</td>
                   
                       <td>{{ date('d-m-Y H:i A',strtotime($value->created_at)) }}</td>
                       <td>{{ $value->created_by_name }}</td>
                       <td>
-                        <a href="{{ url('admin/subject/edit/'.$value->id) }}" class="btn btn-primary">edit</a>
-                        <a href="{{ url('admin/subject/delete/'.$value->id) }}" class="btn btn-danger">delete</a>
+                        <a href="{{ url('admin/assign_subject/edit/'.$value->id) }}" class="btn btn-primary">edit</a>
+                        <a href="{{ url('admin/assign_subject/delete/'.$value->id) }}" class="btn btn-danger">delete</a>
                       </td>
                     </tr>
 

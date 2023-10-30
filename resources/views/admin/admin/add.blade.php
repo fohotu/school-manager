@@ -18,14 +18,14 @@
 
 
                     <div class="form-group">
-                    <label for="exampleInputRounded0">Name</label>
-                    <input type="text" name="name" value="{{ old('name') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder=".rounded-0">
+                      <label for="exampleInputRounded0">Name</label>
+                      <input type="text" name="name" value="{{ old('name') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder=".rounded-0">
                     </div>
 
                     <div class="form-group">
-                    <label for="exampleInputRounded0">Email</code></label>
-                    <input type="text" name="email" value="{{ old('email') }}" class="form-control rounded-0" id="exampleInputRounded0" placeholder=".rounded-0">
-                    <span style="color:red">{{ $errors->first('email') }}</span>
+                      <label for="exampleInputRounded0">Email</code></label>
+                      <input type="text" name="email" value="{{ old('email') }}" class="form-control rounded-0" id="exampleInputRounded0" placeholder=".rounded-0">
+                      <span style="color:red">{{ $errors->first('email') }}</span>
                     </div>
 
                     <div class="form-group">

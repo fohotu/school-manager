@@ -13,9 +13,11 @@ class ClassSubjectController extends Controller
     //
     public function list(Request $request)
     {
+        
         $data['getRecord'] = ClassSubjectModel::getRecord();
         $data['header_title'] = "Subject Assign List";
         return view('admin.assign_subject.list',$data);
+
     }
 
     public function add()
@@ -30,8 +32,6 @@ class ClassSubjectController extends Controller
 
     public function insert(Request $request)
     {
-
-      
         if(!empty($request->subject_id)){
             foreach($request->subject_id as $subject_id){
                 $getAlreadyFirst = ClassSubjectModel::getAlreadyFirst($request->class_id,$subject_id);
@@ -39,6 +39,7 @@ class ClassSubjectController extends Controller
                   $getAlreadyFirst->status = $request->status;
                   $getAlreadyFirst->save();
                 }else{
+
                     $model = new ClassSubjectModel;
                     $model->class_id = $request->class_id;
                     $model->subject_id = $subject_id;
@@ -54,4 +55,52 @@ class ClassSubjectController extends Controller
             return redirect()->back()->with('error','Subject empty');
         }
     }
+
+
+    public function delete($id)
+    {
+        $model =  ClassSubjectModel::getSingle($id);
+        $model->is_delete = 1;
+        $model->save();
+
+        return redirect()->back()->with('success','Record Successfully deleted');
+    
+    }
+
+
+    public function edit($id)
+    {
+
+        $getRecord = ClassSubjectModel::getSingle($id);
+       
+        if(!empty($getRecord))
+        {
+            
+            $data['getRecord'] = $getRecord;
+            $data['getAssignSubjectID'] = ClassSubjectModel::getAssignSubjectID($getRecord->class_id);
+            $data['getClass'] = ClassModel::getClass();
+            $data['getSubject'] = SubjectModel::getSubject();
+            $data['header_title'] = "Edit Assign Subject";
+            return view('admin.assign_subject.edit',$data);
+
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
+
+    public function update(Request $request)
+    {
+        
+        ClassSubjectModel::deleteSubject($request->class_id);
+        
+
+    }
+
+  
+
+
+
 }

@@ -61,12 +61,12 @@ Route::group(['middleware' => 'admin'],function(){
     Route::get('/admin/subject/delete/{id}',[SubjectController::class,'delete']);
 
 
-    Route::get('/admin/assign_subject/subject/list',[ClassSubjectController::class,'list']);
+    Route::get('/admin/assign_subject/list',[ClassSubjectController::class,'list']);
     Route::get('/admin/assign_subject/add',[ClassSubjectController::class,'add']);
     Route::post('/admin/assign_subject/add',[ClassSubjectController::class,'insert']);
     Route::get('/admin/assign_subject/edit/{id}',[ClassSubjectController::class,'edit']);
     Route::post('/admin/assign_subject/edit/{id}',[ClassSubjectController::class,'update']);
-    Route::get('/admin/subjassign_subjectect/delete/{id}',[ClassSubjectController::class,'delete']);
+    Route::get('/admin/assign_subjectect/delete/{id}',[ClassSubjectController::class,'delete']);
    
 
 });
