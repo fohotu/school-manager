@@ -229,6 +229,15 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{ url('admin/student/list') }}" class="nav-link @if(Request::segment(2)=='student') active @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Student
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="{{ url('admin/class/list') }}" class="nav-link @if(Request::segment(2)=='class') active @endif">
               <i class="nav-icon fas fa-th"></i>
@@ -251,6 +260,15 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Assign Subject
+              </p>
+            </a>
+          </li>  
+
+          <li class="nav-item">
+            <a href="{{ url('admin/change_password') }}" class="nav-link @if(Request::segment(2)=='assign-subject') active @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Change Password
               </p>
             </a>
           </li>  

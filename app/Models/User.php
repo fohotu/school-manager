@@ -84,4 +84,29 @@ class User extends Authenticatable
         return self::where('id','=',$id)->first();
     }
 
+    public static function getStudent()
+    {
+        $model =  self::select('users.*')
+        ->where('user_type','=',3)
+        ->where('is_delete','=',0);
+
+        if(!empty(Request::get('email'))){
+           $model = $model->where('email','like','%'.Request::get('email').'%');
+        }
+
+        if(!empty(Request::get('name'))){
+            $model = $model->where('name','=','%'.Request::get('name').'%');
+        }
+
+        if(!empty(Request::get('date'))){
+            $model = $model->where('created_at','=',Request::get('date'));
+        }
+
+
+        $model = $model->orderBy('id','desc')
+        ->paginate(20);
+
+        return $model;
+    }
+
 }

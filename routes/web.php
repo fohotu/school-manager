@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassSubjectController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
 
 
 /*
@@ -53,6 +55,11 @@ Route::group(['middleware' => 'admin'],function(){
     Route::get('/admin/class/delete/{id}',[ClassController::class,'delete']);
 
 
+    Route::get('/admin/student/list',[StudentController::class,'list']);
+    Route::get('/admin/student/add',[StudentController::class,'add']);
+    Route::post('/admin/student/add',[StudentController::class,'insert']);
+
+
     Route::get('/admin/subject/list',[SubjectController::class,'list']);
     Route::get('/admin/subject/add',[SubjectController::class,'add']);
     Route::post('/admin/subject/add',[SubjectController::class,'insert']);
@@ -66,8 +73,17 @@ Route::group(['middleware' => 'admin'],function(){
     Route::post('/admin/assign_subject/add',[ClassSubjectController::class,'insert']);
     Route::get('/admin/assign_subject/edit/{id}',[ClassSubjectController::class,'edit']);
     Route::post('/admin/assign_subject/edit/{id}',[ClassSubjectController::class,'update']);
-    Route::get('/admin/assign_subjectect/delete/{id}',[ClassSubjectController::class,'delete']);
+    Route::get('/admin/assign_subject/edit_single/{id}',[ClassSubjectController::class,'editSingle']);
+    Route::post('/admin/assign_subject/edit_single/{id}',[ClassSubjectController::class,'updateSingle']);
    
+    Route::get('/admin/assign_subject/delete/{id}',[ClassSubjectController::class,'delete']);
+   
+
+    Route::get('/admin/change_password',[UserController::class,'changePassword']);
+    Route::post('/admin/change_password',[UserController::class,'updatePassword']);
+   
+
+
 
 });
 
