@@ -109,4 +109,12 @@ class User extends Authenticatable
         return $model;
     }
 
+    public function getProfile()
+    {
+        if(!empty($this->profile_photo) && file_exists('upload/profile'.$this->profile_photo)){
+            return url('upload/profile/'.$this->profile_photo);
+        }
+        return '';
+    }
+
 }

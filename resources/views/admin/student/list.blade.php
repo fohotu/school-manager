@@ -11,7 +11,7 @@
               @include('_message')
               <div class="card-header">
                 <h3 class="card-title">Student List</h3>
-                <a class="btn btn-primary float-right" href="{{ url('admin/class/add') }}">Add New</a>
+                <a class="btn btn-primary float-right" href="{{ url('admin/student/add') }}">Add New</a>
                
               </div>
 
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group col-md-3">
                       <button style="margin-top:32px" type="submit" class="btn btn-primary">search</button>
-                      <a style="margin-top:32px" href="{{ url('admin/class/list') }}" class="btn btn-success">clear</a>
+                      <a style="margin-top:32px" href="{{ url('admin/student/list') }}" class="btn btn-success">clear</a>
                     </div>
                 </div> 
               </form>
@@ -57,8 +57,8 @@
                       <td>{{ $value->email }}</td>
                       <td>{{ date('d-m-Y H:i A',strtotime($value->created_at)) }}</td>
                       <td>
-                        <a href="{{ url('admin/class/edit/'.$value->id) }}" class="btn btn-primary">edit</a>
-                        <a href="{{ url('admin/class/delete/'.$value->id) }}" class="btn btn-danger">delete</a>
+                        <a href="{{ url('admin/student/edit/'.$value->id) }}" class="btn btn-primary">edit</a>
+                        <a href="{{ url('admin/student/delete/'.$value->id) }}" class="btn btn-danger">delete</a>
                       </td>
               
                     </tr>
