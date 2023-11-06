@@ -40,6 +40,8 @@ class CreateUsersTable extends Migration
             $table->string('blood_group',10)->nullable();
             $table->string('height',10)->nullable();
             $table->string('weight',10)->nullable();
+            $table->string('occupation')->nullable();
+            $table->string('address')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0:active,1:inactive');
 
         });

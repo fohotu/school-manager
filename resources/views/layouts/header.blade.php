@@ -239,6 +239,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ url('admin/parent/list') }}" class="nav-link @if(Request::segment(2)=='parent') active @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Parent
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ url('admin/class/list') }}" class="nav-link @if(Request::segment(2)=='class') active @endif">
               <i class="nav-icon fas fa-th"></i>
               <p>
