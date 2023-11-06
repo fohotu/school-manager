@@ -104,7 +104,7 @@
                         <label for="exampleInputRounded0">Profile Pic</label>
                         <input type="file" name="profile_pic"  class="form-control rounded-0" id="exampleInputRounded0" placeholder="Profile Pic">
                         @if(!empty($getRecord->getProfile()))
-                          <img src="{{ $getRcord->getProfile()}}" style="width:100px"/>
+                          <img src="{{ $getRecord->getProfile()}}" style="width:100px"/>
                         @endif
                       </div>
                     </div>  

@@ -114,7 +114,7 @@ class StudentController extends Controller
     {
 
         $request->validateWithBag('student',[
-            'email' => 'required|email|unique:users,$email,'.$id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'wieght' => 'max:10',
             'blood_group' => 'max:10',
             'mobile_number' => 'max:15',
@@ -178,5 +178,20 @@ class StudentController extends Controller
     
     }
 
+
+    public function delete($id)
+    {
+        $getRecord = User::getSingle($id);
+        if(!empty($getRecord))
+        {
+            $getRecord->is_delete = 1;
+            $getRecord->save();
+            return redirect('admin/student/list')->with('success','Student successfully deleted');
+        }
+        else
+        {
+            abort(404);
+        }
+    }
 
 }
