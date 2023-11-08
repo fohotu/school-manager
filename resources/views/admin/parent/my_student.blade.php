@@ -16,6 +16,10 @@
               <form method="get" action="">
                 <div class="card-body row">
                     <div class="form-group col-md-3">
+                      <label for="exampleInputRounded0">Student id</label>
+                      <input type="text" name="id" value="{{ Request::get('id') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder="Student ID">
+                    </div>
+                    <div class="form-group col-md-3">
                       <label for="exampleInputRounded0">Name</label>
                       <input type="text" name="name" value="{{ Request::get('name') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder="Name">
                     </div>
@@ -27,45 +31,7 @@
                       <label for="exampleInputRounded0">Email</label>
                       <input type="text" name="email" value="{{ Request::get('email') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder="Email">
                     </div>
-            
-                    <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Gender</label>
-                      <select name="gender"  class="form-control rounded-0">
-                          <option @if(Request::get('gender') == 'Male') 'selected' @endif>Male</option>
-                          <option @if(Request::get('gender') == 'Female') 'selected' @endif>Female</option>
-                          <option @if(Request::get('gender') == 'Other') 'selected' @endif>Other</option>
-                      </select>
-                    </div>
-
-
-                    <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Occupation</label>
-                      <input type="text" name="class" value="{{ Request::get('occupation') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder="Occupation">
-                    </div>
-
-                    <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Address</label>
-                      <input type="text" name="class" value="{{ Request::get('address') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder="Address">
-                    </div>
-
-                   
-                    <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Mobile Number</label>
-                      <input type="text" name="mobile_number" value="{{ Request::get('mobile_number') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder="Mobile Number">
-                    </div>
-                   
-                    <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Status</label>
-                      <input type="text" name="status" value="{{ Request::get('status') }}"  class="form-control rounded-0" id="exampleInputRounded0" placeholder="">
-                    </div>
-
-
-                   
-                    <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Created Date</code></label>
-                      <input type="date" name="created_date" value="{{ Request::get('created_date') }}" class="form-control rounded-0" id="exampleInputRounded0" placeholder="">
-                   
-                    </div>
+                    
                     <div class="form-group col-md-3">
                       <button style="margin-top:32px" type="submit" class="btn btn-primary">search</button>
                       <a style="margin-top:32px" href="{{ url('admin/parent/list') }}" class="btn btn-success">clear</a>
@@ -75,6 +41,53 @@
 
               <!-- /.card-header -->
               <div class="card-body">
+              @if(!empty($getSaerchStudent))
+                <table class="table table-bordered table-responsive">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Photo</th>
+                      <th>Student Name</th>
+                      <th>Parent Name</th>
+                      <th>Email</th>
+                      <th>Created Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                
+                  <tbody>
+
+                  
+                    @foreach($getSaerchStudent as $value)
+                    <tr>
+                      <td>{{ $value->id }}</td>
+                      <td>
+                        @if(!empty($value->getProfile()))
+                          <img src="{{ $value->getProfile()}}" style="width:100px;border-radius:100%"/>
+                        @endif
+                      </td>
+                      <td>{{ $value->name }}</td>
+                      <td>{{ $value->parent_name }}</td>
+                      <td>{{ $value->email }}</td>
+                      <td>{{ date('d-m-Y H:i A',strtotime($value->created_at)) }}</td>
+                      <td>
+                        <a href="{{ url('admin/parent/edit/'.$value->id) }}" class="btn btn-primary">Add Student to Parent</a>
+                     
+                      </td>
+              
+                    </tr>
+
+                    @endforeach
+
+                 
+                    
+                  </tbody>
+              
+                </table>
+
+                @endif
+
                 <table class="table table-bordered table-responsive">
                   <thead>
                     <tr>
@@ -102,8 +115,12 @@
 
                     </tr>
                   </thead>
+                  @if(!empty($getSaerchStudent))
+                  
                   <tbody>
-                    @foreach($getRecord as $value)
+
+                  
+                    @foreach($getSaerchStudent as $value)
                     <tr>
                       <td>{{ $value->id }}</td>
                       <td>
@@ -144,14 +161,19 @@
                     </tr>
 
                     @endforeach
+
+                 
                     
                   </tbody>
+                  @endif
                 </table>
            
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
-                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                @if(!empty($getRecord))
+                  {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                @endif
               </div>
             </div>
             <!-- /.card -->

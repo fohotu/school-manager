@@ -26,9 +26,12 @@ class AuthController extends Controller
 
     public function AuthLogin(Request $request)
     {
+     //   dd($request);
         $remember = (empty($request->remember)) ? true :false;
         if(Auth::attempt(['email' => $request->email,'password'=>$request->password],true))
         {
+
+         //   dd(Auth::user());
 
             if(Auth::user()->user_type==1)
             {

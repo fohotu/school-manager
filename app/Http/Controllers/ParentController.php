@@ -83,6 +83,47 @@ class ParentController extends Controller
 
     }
 
+    public function edit($id)
+    {
+     
+        $data['getRecord'] = User::getSingle($id);
+        if(!empty($data['getRecord']))
+        {
+       
+            $data['header_title'] = "Edit Parent";
+            return view('admin.parent.edit',$data);
+        }
+        else
+        {
+            abort(404);
+        }
+        
+
+        
+        
+    }
+
+
+    public function myStudent($id)
+    {
+
+        $data['parent_id'] = $id;
+        $data['header_title'] = 'Parent Student List';
+        $data['getSaerchStudent'] = User::getSearchStudent();
+        return view('admin.parent.my_student',$data);
+
+    }
+
+
+    public function AssignStudentParent($student_id,$parent_id)
+    {
+        $student = User::getSingle($student_id);
+        $student->parent_id = $parent_id;
+        $student->save();
+
+        return redirect()->back()->with('success','Student Successfully Asign');
+    }
+
     
 
 }

@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
         
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->integer('parent_id')->nullable()->default(null);
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -24,7 +25,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->tinyInteger('user_type')->comment('1:admin,2:teacher,3:student,4:parent');
             $table->tinyInteger('is_delete');
-            
             $table->string('admission_number',50)->nullable();
             $table->string('roll_number',50)->nullable();
             $table->integer('class_id')->nullable();

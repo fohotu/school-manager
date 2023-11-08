@@ -186,9 +186,10 @@ class User extends Authenticatable
         ->where('user_type','=',4)
         ->where('users.is_delete','=',0);
 
+
         if(!empty(Request::get('email'))){
-           $model = $model->where('users.email','like','%'.Request::get('email').'%');
-        }
+            $model = $model->where('users.email','like','%'.Request::get('email').'%');
+         }
 
         if(!empty(Request::get('name'))){
             $model = $model->where('name','like','%'.Request::get('name').'%');
@@ -260,6 +261,66 @@ class User extends Authenticatable
         ->paginate(20);
 
         return $model;
+    }
+
+
+    public static function getSearchStudent()
+    {
+
+       
+        if(!empty(Request::get('id')) ||
+         !empty(Request::get('name')) || 
+        !empty(Request::get('last_name')) ||
+        !empty(Request::get('email'))
+        )
+        {
+
+
+            $model =  self::select('users.*','class.name as class_name','parent.name as parent_name')
+            ->join('users as parent','parent.id','=','users.parent.id')
+            ->join('class','class.id','=','users.class_id','left')
+            ->where('user_type','=',3)
+            ->where('users.is_delete','=',0);
+            
+
+            if(!empty(Request::get('id'))){
+                $model = $model->where('users.id','=',Request::get('id'));
+            }
+    
+            if(!empty(Request::get('email'))){
+                $model = $model->where('users.email','like','%'.Request::get('email').'%');
+            }
+    
+            if(!empty(Request::get('name'))){
+                $model = $model->where('name','like','%'.Request::get('name').'%');
+            }
+
+            if(!empty(Request::get('last_name'))){
+                $model = $model->where('users.last_name','like','%'.Request::get('last_name').'%');
+            }
+    
+            $model = $model->orderBy('id','desc')
+            ->paginate(20);
+    
+            return $model;
+
+
+        }
+    }
+
+
+    public static function getMyStudent($parent_id)
+    {
+        $model = self::select('users.*','class.name as class_name','parent.name as parent_name')
+        ->join('users as parent','parent.id','=','users.parent_id','left')
+        ->join('class','class.id','=','users.class_id','left')
+        ->where('users.user_type','=',3)
+        ->where('users.is_delete','=',0)
+        ->orderBy('users.id','desc')
+        ->get();
+
+        return $model;
+        
     }
 
 }
