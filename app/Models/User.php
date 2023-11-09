@@ -86,9 +86,10 @@ class User extends Authenticatable
 
     public static function getStudent()
     {
-        $model =  self::select('users.*','class.name as class_name')
+        $model =  self::select('users.*','class.name as class_name','parent.name as parent_name','parent.last_name as parent_last_name')
+        ->join('users as parent','parent.id','=','users.parent_id','left')
         ->join('class','class.id','=','users.class_id','left')
-        ->where('user_type','=',3)
+        ->where('users.user_type','=',3)
         ->where('users.is_delete','=',0);
 
         if(!empty(Request::get('email'))){
@@ -274,34 +275,38 @@ class User extends Authenticatable
         !empty(Request::get('email'))
         )
         {
-
-
+         
+            var_dump(Request::all());
             $model =  self::select('users.*','class.name as class_name','parent.name as parent_name')
-            ->join('users as parent','parent.id','=','users.parent.id')
+            ->join('users as parent','parent.id','=','users.parent_id','left')
             ->join('class','class.id','=','users.class_id','left')
-            ->where('user_type','=',3)
+            ->where('users.user_type','=',3)
             ->where('users.is_delete','=',0);
-            
 
             if(!empty(Request::get('id'))){
+                
                 $model = $model->where('users.id','=',Request::get('id'));
             }
     
+           
             if(!empty(Request::get('email'))){
                 $model = $model->where('users.email','like','%'.Request::get('email').'%');
             }
     
             if(!empty(Request::get('name'))){
-                $model = $model->where('name','like','%'.Request::get('name').'%');
+                $model = $model->where('users.name','like','%'.Request::get('name').'%');
             }
 
             if(!empty(Request::get('last_name'))){
                 $model = $model->where('users.last_name','like','%'.Request::get('last_name').'%');
             }
+          
     
-            $model = $model->orderBy('id','desc')
-            ->paginate(20);
-    
+            $model = $model->orderBy('users.id','desc')
+            ->limit(50)
+            ->get();
+         
+
             return $model;
 
 
@@ -311,10 +316,12 @@ class User extends Authenticatable
 
     public static function getMyStudent($parent_id)
     {
+        
         $model = self::select('users.*','class.name as class_name','parent.name as parent_name')
         ->join('users as parent','parent.id','=','users.parent_id','left')
         ->join('class','class.id','=','users.class_id','left')
         ->where('users.user_type','=',3)
+        ->where('users.parent_id','=',$parent_id)
         ->where('users.is_delete','=',0)
         ->orderBy('users.id','desc')
         ->get();
@@ -322,5 +329,8 @@ class User extends Authenticatable
         return $model;
         
     }
+
+
+   
 
 }

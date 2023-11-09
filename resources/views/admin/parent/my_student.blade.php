@@ -7,6 +7,8 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
+
+
             <div class="card">
               @include('_message')
               <div class="card-header">
@@ -41,8 +43,28 @@
 
               <!-- /.card-header -->
               <div class="card-body">
+     
+
+           
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+              
+              </div>
+            </div>
+            <!-- /.card -->
+
+            <div class="card">
+        
+              <div class="card-header">
+                <h3 class="card-title">Student List</h3>
+              </div>
+             
+
+              <!-- /.card-header -->
+              <div class="card-body">
               @if(!empty($getSaerchStudent))
-                <table class="table table-bordered table-responsive">
+                <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
@@ -72,10 +94,8 @@
                       <td>{{ $value->email }}</td>
                       <td>{{ date('d-m-Y H:i A',strtotime($value->created_at)) }}</td>
                       <td>
-                        <a href="{{ url('admin/parent/edit/'.$value->id) }}" class="btn btn-primary">Add Student to Parent</a>
-                     
-                      </td>
-              
+                        <a href="{{ url('admin/parent/assign_student_parent/'.$value->id.'/'.$parent_id) }}" class="btn btn-primary">Assign Student to Parent</a>
+                      </td> 
                     </tr>
 
                     @endforeach
@@ -87,6 +107,25 @@
                 </table>
 
                 @endif
+
+           
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+               
+              </div>
+            </div>
+
+            <div class="card">
+         
+              <div class="card-header">
+                <h3 class="card-title">Parent Student List {{ $getParent->name }} {{ $getParent->last_name }}</h3>
+              </div>
+              
+
+              <!-- /.card-header -->
+              <div class="card-body">
+            
 
                 <table class="table table-bordered table-responsive">
                   <thead>
@@ -115,12 +154,12 @@
 
                     </tr>
                   </thead>
-                  @if(!empty($getSaerchStudent))
+                  @if(!empty($getRecord))
                   
                   <tbody>
 
                   
-                    @foreach($getSaerchStudent as $value)
+                    @foreach($getRecord as $value)
                     <tr>
                       <td>{{ $value->id }}</td>
                       <td>
@@ -153,9 +192,8 @@
                       <td>{{ $value->status }}</td>
                       <td>{{ date('d-m-Y H:i A',strtotime($value->created_at)) }}</td>
                       <td>
-                        <a href="{{ url('admin/parent/edit/'.$value->id) }}" class="btn btn-primary">edit</a>
-                        <a href="{{ url('admin/parent/delete/'.$value->id) }}" class="btn btn-danger">delete</a>
-                        <a href="{{ url('admin/parent/my-student/'.$value->id) }}" class="btn btn-primary">My Student</a>
+                        
+                        <a href="{{ url('admin/parent/assign_student_parent_delete/'.$value->id) }}" class="btn btn-danger">delete</a>
                       </td>
               
                     </tr>
@@ -171,12 +209,9 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
-                @if(!empty($getRecord))
-                  {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-                @endif
+              
               </div>
             </div>
-            <!-- /.card -->
 
             
             <!-- /.card -->
