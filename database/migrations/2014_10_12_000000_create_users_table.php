@@ -42,6 +42,14 @@ class CreateUsersTable extends Migration
             $table->string('weight',10)->nullable();
             $table->string('occupation')->nullable();
             $table->string('address')->nullable();
+            
+            $table->date('date_of_joinging')->nullable()->default(null);
+            $table->string('martial_status')->nullable()->default(null);
+            $table->string('permanent_address')->nullable()->defualt(null);
+            $table->string('qualification')->nullable()->defualt(null);
+            $table->string('work_experience')->nullable()->defualt(null);
+            $table->string('note')->nullable()->defualt(null);
+
             $table->tinyInteger('status')->default(0)->comment('0:active,1:inactive');
 
         });

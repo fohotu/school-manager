@@ -26,12 +26,15 @@ class AuthController extends Controller
 
     public function AuthLogin(Request $request)
     {
-     //   dd($request);
-        $remember = (empty($request->remember)) ? true :false;
+        $remember = (empty($request->remember)) ? true :false;   
+
+   //     $r = Auth::attempt(['email' => $request->email,'password'=>$request->password],true);
+
+      
+
+
         if(Auth::attempt(['email' => $request->email,'password'=>$request->password],true))
         {
-
-         //   dd(Auth::user());
 
             if(Auth::user()->user_type==1)
             {
@@ -57,9 +60,13 @@ class AuthController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
         return redirect(url(''));
     }
 

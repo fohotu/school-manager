@@ -184,41 +184,6 @@
               </a>
             
             </li>
-          @elseif(Auth::user()->user_type==2)
-            <li class="nav-item">
-              <a href="{{ url('teacher/dashboard') }}" class="nav-link @if(Request::segment(2)=='dashboard') active @endif">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-            
-            </li>
-          @elseif(Auth::user()->user_type==3)
-            <li class="nav-item ">
-              <a href="{{ url('student/dashboard') }}" class="nav-link @if(Request::segment(2)=='dashboard') active @endif">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-            
-            </li>
-          @elseif(Auth::user()->user_type==4)
-            <li class="nav-item">
-              <a href="{{ url('parent/dashboard') }}" class="nav-link @if(Request::segment(2)=='dashboard') active @endif">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-            
-            </li>
-          @endif
-
 
         
           <li class="nav-item">
@@ -243,6 +208,14 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Parent
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('admin/teacher/list') }}" class="nav-link @if(Request::segment(2)=='teacher') active @endif">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Teacher
               </p>
             </a>
           </li>
@@ -280,6 +253,68 @@
               </p>
             </a>
           </li>  
+
+
+          @elseif(Auth::user()->user_type==2)
+            <li class="nav-item">
+              <a href="{{ url('teacher/dashboard') }}" class="nav-link @if(Request::segment(2)=='dashboard') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ url('teacher/account') }}" class="nav-link @if(Request::segment(2)=='acount') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  My Acount
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+
+          
+          @elseif(Auth::user()->user_type==3)
+            <li class="nav-item ">
+              <a href="{{ url('student/dashboard') }}" class="nav-link @if(Request::segment(2)=='dashboard') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+          @elseif(Auth::user()->user_type==4)
+            <li class="nav-item">
+              <a href="{{ url('parent/dashboard') }}" class="nav-link @if(Request::segment(2)=='dashboard') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+          @endif
+
+
+          <li class="nav-item">
+              <a href="{{ url('teacher/change_password') }}" class="nav-link @if(Request::segment(2)=='change_password') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Change Password
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+
 
           <li class="nav-item">
             <a href="{{ url('logout') }}" class="nav-link">

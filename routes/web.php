@@ -9,6 +9,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ParentController;
 
 
@@ -64,6 +65,14 @@ Route::group(['middleware' => 'admin'],function(){
     Route::get('/admin/student/delete/{id}',[StudentController::class,'delete']);
 
 
+    Route::get('/admin/teacher/list',[TeacherController::class,'list']);
+    Route::get('/admin/teacher/add',[TeacherController::class,'add']);
+    Route::post('/admin/teacher/add',[TeacherController::class,'insert']);
+    Route::get('/admin/teacher/edit/{id}',[TeacherController::class,'edit']);
+    Route::post('/admin/teacher/edit/{id}',[TeacherController::class,'update']);
+    Route::get('/admin/teacher/delete/{id}',[TeacherController::class,'delete']);
+
+
     Route::get('/admin/parent/list',[ParentController::class,'list']);
     Route::get('/admin/parent/add',[ParentController::class,'add']);
     Route::post('/admin/parent/add',[ParentController::class,'insert']);
@@ -103,10 +112,16 @@ Route::group(['middleware' => 'admin'],function(){
 
 Route::group(['middleware' => 'teacher'],function(){
 
-    Route::get('teacher/dashboard',function(){
-        return view('teacher.dashboard');
-    });
 
+    Route::get('/teacher/dashboard',[DashboardController::class,'dashboard']);
+
+    Route::get('teacher/change_password',[UserController::class,'change_password']);
+    Route::post('teacher/change_password',[UserController::class,'update_change_password']);
+
+
+    Route::get('teacher/account',[UserController::class,'MyAccount']);
+    Route::post('teacher/account',[UserController::class,'UpdateMyAccount']);
+   
   
 
 });
