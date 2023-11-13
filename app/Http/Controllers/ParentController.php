@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\ClassSubjectModel;
 
 use Illuminate\Support\Str;
 use Hash;
+use Auth;
 
 class ParentController extends Controller
 {
@@ -134,6 +136,27 @@ class ParentController extends Controller
         $student->save();
 
         return redirect()->back()->with('success','Student Successully Assign Delete');
+    }
+
+
+    public function MyStudentParent()
+    {
+        $id = Auth::user()->id;
+
+        $data['getRecord'] = User::getMyStudent($id);
+        $data['header_title'] = 'My Student';
+        return view('parent.my_student',$data);
+    }
+
+    public function ParentStudentsSubject($student_id)
+    {
+            
+            $user = User::getSingle($student_id);
+            $data['getUser'] = $user;
+            $data['getRecord'] = ClassSubjectModel::MySubject($user->class_id);
+            $data['header_title'] = 'Student Subject';
+            return view('parent.my_student_subject',$data);
+
     }
 
     

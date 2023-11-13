@@ -316,7 +316,7 @@ class User extends Authenticatable
     {
         
         $model = self::select('users.*','class.name as class_name','parent.name as parent_name')
-        ->join('users as parent','parent.id','=','users.parent_id','left')
+        ->join('users as parent','parent.id','=','users.parent_id')
         ->join('class','class.id','=','users.class_id','left')
         ->where('users.user_type','=',3)
         ->where('users.parent_id','=',$parent_id)
@@ -399,6 +399,21 @@ class User extends Authenticatable
         return $model;
     }
 
+
+
+
+    public static function getTeacherClass()
+    {
+        $model = self::select('users.*')
+            ->where('users.user_type','=',2)
+            ->where('users.is_delete','=',0);
+
+        $model = $model->orderBy('users.id','desc')
+                ->get(20);
+
+         return $model;       
+
+    }
 
 
 

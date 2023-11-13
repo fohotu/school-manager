@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\AssingClassTeacherController;
 
 
 /*
@@ -41,6 +42,9 @@ Route::post('reset/{token}',[AuthController::class,'PostReset']);
 Route::group(['middleware' => 'admin'],function(){
 
     Route::get('/admin/dashboard',[DashboardController::class,'dashboard']);
+
+    Route::get('admin/account',[UserController::class,'MyAccount']);
+    Route::post('admin/account',[UserController::class,'UpdateMyAccountAdmin']);  
 
     Route::get('/admin/admin/list',[AdminController::class,'list']);
     Route::get('/admin/admin/add',[AdminController::class,'add']);
@@ -106,39 +110,52 @@ Route::group(['middleware' => 'admin'],function(){
     Route::post('/admin/change_password',[UserController::class,'updatePassword']);
    
 
+    Route::get('/admin/assing_class_teacher/list',[AssingClassTeacherController::class,'list']);
+    Route::get('/admin/assing_class_teacher/add',[AssingClassTeacherController::class,'add']);
+    Route::post('/admin/assing_class_teacher/add',[AssingClassTeacherController::class,'insert']);
 
 
 });
 
 Route::group(['middleware' => 'teacher'],function(){
 
-
     Route::get('/teacher/dashboard',[DashboardController::class,'dashboard']);
 
-    Route::get('teacher/change_password',[UserController::class,'change_password']);
-    Route::post('teacher/change_password',[UserController::class,'update_change_password']);
-
+    Route::get('teacher/change_password',[UserController::class,'changePassword']);
+    Route::post('teacher/change_password',[UserController::class,'updatePassword']);
 
     Route::get('teacher/account',[UserController::class,'MyAccount']);
-    Route::post('teacher/account',[UserController::class,'UpdateMyAccount']);
-   
+    Route::post('teacher/account',[UserController::class,'UpdateMyAccount']);   
   
 
 });
 
 Route::group(['middleware' => 'student'],function(){
 
-    Route::get('student/dashboard',function(){
-        return view('student.dashboard');
-    });
+
+    Route::get('/student/dashboard',[DashboardController::class,'dashboard']);
+    Route::get('/student/my_subject',[SubjectController::class,'MySubject']);
+
+    Route::get('student/change_password',[UserController::class,'changePassword']);
+    Route::post('student/change_password',[UserController::class,'updatePassword']);
+
+    Route::get('student/account',[UserController::class,'MyAccount']);
+    Route::post('student/account',[UserController::class,'UpdateMyAccountStudent']);   
 
 });
 
 Route::group(['middleware' => 'parent'],function(){
 
-    Route::get('parent/dashboard',function(){
-        return view('parent.dashboard');
-    });
+
+    Route::get('/parent/dashboard',[DashboardController::class,'dashboard']);
+    Route::get('parent/change_password',[UserController::class,'changePassword']);
+    Route::post('parent/change_password',[UserController::class,'updatePassword']);
+    Route::get('parent/account',[UserController::class,'MyAccount']);
+    Route::post('parent/account',[UserController::class,'UpdateMyAccountParent']);   
+
+    Route::get('parent/my_student',[ParentController::class,'MyStudentParent']);
+    Route::get('parent/my_student/subject/{student_id}',[ParentController::class,'ParentStudentsSubject']);
+
 
 });
 

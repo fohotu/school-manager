@@ -50,24 +50,27 @@
                     </div>  
 
                     <div class="row">
-                      
-                    <div class="form-group col-6">
-                        <label for="exampleInputRounded0">Date Of Joinning<i>*</i></label>
-                        <input type="date" name="date_of_joining" value="{{ old('date_of_joining',$getRecord->date_of_joining) }}" class="form-control rounded-0" placeholder="Date Of Birth">
-                        <div>{{ $errors->first('date_of_joining') }}</div>
+
+                      <div class="form-group col-6">
+                          <label for="exampleInputRounded0">Caste</label>
+                          <input type="text" name="caste" value="{{ old('caste',$getRecord->caste) }}" class="form-control rounded-0" placeholder="Caste">
+                          <div>{{ $errors->first('date_of_joining') }}</div>
                       </div>
 
                       <div class="form-group col-6">
-                        <label for="exampleInputRounded0">Mobile Number</label>
-                        <input type="text" name="mobile_number" value="{{ old('mobile_number',$getRecord->mobile_number) }}"  class="form-control rounded-0" placeholder="Mobile Number">
+                          <label for="exampleInputRounded0">Religion</label>
+                          <input type="text" name="religion" value="{{ old('religion',$getRecord->religion) }}" class="form-control rounded-0" placeholder="Religion">
+                          <div>{{ $errors->first('date_of_joining') }}</div>
                       </div>
+                      
+                    
+                     
                     </div>  
 
                     <div class="row">
                       <div class="form-group col-6">
-                        <label for="exampleInputRounded0">Martial Status</label>
-                        <input type="text" name="martial_status" value="{{ old('martial_status',$getRecord->martial_status) }}"  class="form-control rounded-0"  placeholder="martial_status">
-                      
+                        <label for="exampleInputRounded0">Mobile Number</label>
+                        <input type="text" name="mobile_number" value="{{ old('mobile_number',$getRecord->mobile_number) }}"  class="form-control rounded-0" placeholder="Mobile Number">
                       </div>
 
                       <div class="form-group col-6">
@@ -78,69 +81,50 @@
                         @endif
                       </div>
 
-                    </div>
+                    </div> 
 
                     <div class="row">
                       <div class="form-group col-6">
-                        <label for="exampleInputRounded0">Current Address</label>
-                        <textarea name="current_address" class="form-control rounded-0"> {{ old('current_address',$getRecord->address) }} </textarea>
-                        @error('current_address','student')
+                        <label for="exampleInputRounded0">Blood Group</label>
+                        <input type="text" name="blood_group" value="{{ old('blood_group',$getRecord->blood_group) }}" class="form-control rounded-0"  placeholder="Blood Group">
+                        @error('blood_group','student')
                           <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                       </div>
 
                       <div class="form-group col-6">
-                        <label for="exampleInputRounded0">Permanent Address</label>
-                        <textarea name="permanent_address"  class="form-control rounded-0"> {{ old('permanent_address',$getRecord->permanent_address) }} </textarea>
-                        @error('permanent_address','student')
+                        <label for="exampleInputRounded0">Heigth</label>
+                        <input type="text" name="height" value="{{ old('height',$getRecord->height) }}" class="form-control rounded-0"  placeholder="Heigth">
+                        @error('heigth','student')
                           <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                       </div>
-
-                    
                     </div>  
 
                     <div class="row">
                       <div class="form-group col-6">
-                        <label for="exampleInputRounded0">Qualification</label>
-                        <textarea name="qualification"  class="form-control rounded-0"> {{ old('qualification',$getRecord->qualification) }} </textarea>
-                        @error('qualification','student')
+                        <label for="exampleInputRounded0">Weight</label>
+                        <input type="text" name="weight" value="{{ old('weight',$getRecord->weight) }}" class="form-control rounded-0"  placeholder="Weight">
+                        @error('weight','student')
                           <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-                      </div>
-
-                      <div class="form-group col-6">
-                        <label for="exampleInputRounded0">Work Experience</label>
-                        <textarea name="work_experience" class="form-control rounded-0"> {{ old('work_experience',$getRecord->work_experience) }} </textarea>
-                        @error('work_experience','student')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                      </div>
+                      </div>  
 
                     </div>  
 
                     <div class="row">
-                      
-                    <div class="form-group col-6">
-                        <label for="exampleInputRounded0">Note</label>
-                        <textarea name="note" class="form-control rounded-0"> {{ old('note',$getRecord->note) }} </textarea>
-                        @error('note','student')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="exampleInputRounded0">Email<i>*</i></code></label>
+                          <input type="text" name="email"  value="{{ old('email',$getRecord->email) }}" class="form-control rounded-0"  placeholder="Email">
+                          @error('email','teacher')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                        </div>
                       </div>
-
-                     
                     </div>  
                    
 
-                    <div class="form-group">
-                      <label for="exampleInputRounded0">Email<i>*</i></code></label>
-                      <input type="text" name="email"  value="{{ old('email',$getRecord->email) }}" class="form-control rounded-0"  placeholder="Email">
-                     
-                      @error('email','teacher')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                      @enderror
-                    </div>
 
                   
                     

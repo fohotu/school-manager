@@ -151,7 +151,7 @@
 
                     <div class="form-group">
                       <label for="exampleInputRounded0">Password</code></label>
-                      <input type="password" class="form-control rounded-0"  >
+                      <input type="password"  name="password" class="form-control rounded-0"  >
                     </div>
                     
                 </div>
