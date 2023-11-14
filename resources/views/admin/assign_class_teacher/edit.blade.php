@@ -21,45 +21,41 @@
                         <select class="form-control" name="class_id" required>
                             <option value="">Select Class</option>
                             @foreach($getClass as $class)
-                                <option value="{{ $class->id }}">{{ $class->name}} </option>
+                                <option value="{{ $class->id }}" {{ ($getRecord->class_id==$class->id) ? 'selected':''}}>{{ $class->name}} </option>
                             @endforeach
                         </select>
                       </div>
 
                       <div class="form-group col-12">
-                        <label for="exampleInputRounded0">Teacher Name<i>*</i></label>
                        
-                            @foreach($getTeacher as $teacher)
-                            <div>
+                      
+                      <label for="exampleInputRounded0">Teacher Name<i>*</i></label>
+                        @foreach($getTeacher as $teacher)  
+                            @php  
+                                $checked = '';
+                            @endphp 
+                            @foreach($getAssignTeacherID as $teacherID)
+                              @if($teacherID->teacher_id == $teacher->id)
+                                 @php 
+                                  $checked = 'checked';
+                                 @endphp
+                              @endif
+                              @endforeach  
+                              <div>
                               <label>
-                                  <input type="checkbox" value="{{ $teacher->id }}" name="teacher_id[]">{{ $teacher->name}} </option>
+                                  <input {{$checked}} type="checkbox" value="{{ $teacher->id }}" name="teacher_id[]">{{ $teacher->name}} </option>
                               </label>
                               </div>
-                            @endforeach
-                        
+                           @endforeach 
                       </div>
 
                       <div class="form-group col-12">
                           <select name="status" class="form-control">
-                            <option value="0">Active</option>
-                            <option value="1">Inactive</option>
+                            <option {{ ($getRecord->status == 0) ? 'selected':'' }} value="0">Active</option>
+                            <option {{ ($getRecord->status == 1) ? 'selected':'' }} value="1">Inactive</option>
                           <select>
                       </div>
                     </div>  
- 
-
-                    
-
-
-                   
-
-                   
-
-                
-
-                  
-
-                 
                     
                 </div>
                 <!-- /.card-body -->

@@ -110,11 +110,14 @@ Route::group(['middleware' => 'admin'],function(){
     Route::post('/admin/change_password',[UserController::class,'updatePassword']);
    
 
-    Route::get('/admin/assing_class_teacher/list',[AssingClassTeacherController::class,'list']);
-    Route::get('/admin/assing_class_teacher/add',[AssingClassTeacherController::class,'add']);
-    Route::post('/admin/assing_class_teacher/add',[AssingClassTeacherController::class,'insert']);
-
-
+    Route::get('/admin/assign_class_teacher/list',[AssingClassTeacherController::class,'list']);
+    Route::get('/admin/assign_class_teacher/add',[AssingClassTeacherController::class,'add']);
+    Route::post('/admin/assign_class_teacher/add',[AssingClassTeacherController::class,'insert']);
+    Route::get('/admin/assign_class_teacher/edit/{id}',[AssingClassTeacherController::class,'edit']);
+    Route::post('/admin/assign_class_teacher/edit/{id}',[AssingClassTeacherController::class,'update']);
+    Route::get('/admin/assign_class_teacher/edit_single/{id}',[AssingClassTeacherController::class,'edit_single']);
+    Route::post('/admin/assign_class_teacher/edit_single/{id}',[AssingClassTeacherController::class,'updateSingle']);
+    //
 });
 
 Route::group(['middleware' => 'teacher'],function(){

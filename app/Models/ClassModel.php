@@ -48,8 +48,8 @@ class ClassModel extends Model
         ->join('users','users.id','class.created_by')
         ->where('class.is_delete','=',0)
         ->where('class.status','=',1)
-        ->orderBy('class.id','desc')
-        ->get(20);
+        ->orderBy('class.name','asc')
+        ->get();
 
         return $model;
     }
