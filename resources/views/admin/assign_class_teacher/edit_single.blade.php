@@ -30,7 +30,7 @@
                        
                       
                       <label for="exampleInputRounded0">Teacher Name<i>*</i></label>
-                        <select class="form-control" name="tecaher_id" requierd>
+                        <select class="form-control" name="teacher_id" requierd>
                           @foreach($getTeacher as $teacher)  
                               <option {{ ($getRecord->teacher_id == $teacher->id) ? 'selected' : '' }}  value="{{ $teacher->id }}" >{{ $teacher->name }} {{ $teacher->last_name }}</option>
                           @endforeach

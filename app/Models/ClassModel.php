@@ -47,7 +47,7 @@ class ClassModel extends Model
         $model = ClassModel::select('class.*','users.name as created_by_name')
         ->join('users','users.id','class.created_by')
         ->where('class.is_delete','=',0)
-        ->where('class.status','=',1)
+        ->where('class.status','=',0)
         ->orderBy('class.name','asc')
         ->get();
 

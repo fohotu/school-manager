@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AssingClassTeacherController;
+use App\Http\Controllers\ClassTimetableController;
 
 
 /*
@@ -117,7 +118,14 @@ Route::group(['middleware' => 'admin'],function(){
     Route::post('/admin/assign_class_teacher/edit/{id}',[AssingClassTeacherController::class,'update']);
     Route::get('/admin/assign_class_teacher/edit_single/{id}',[AssingClassTeacherController::class,'edit_single']);
     Route::post('/admin/assign_class_teacher/edit_single/{id}',[AssingClassTeacherController::class,'updateSingle']);
-    //
+    
+    Route::get('/admin/assign_class_teacher/delete/{id}',[AssingClassTeacherController::class,'delete']);
+   
+    Route::get('/admin/class_timetable/list',[ClassTimetableController::class,'list']);
+    Route::get('/admin/class_timetable/get_subject',[ClassTimetableController::class,'get_subject']);
+
+
+
 });
 
 Route::group(['middleware' => 'teacher'],function(){
@@ -129,7 +137,10 @@ Route::group(['middleware' => 'teacher'],function(){
 
     Route::get('teacher/account',[UserController::class,'MyAccount']);
     Route::post('teacher/account',[UserController::class,'UpdateMyAccount']);   
-  
+    
+    Route::get('teacher/my_class_subject',[AssingClassTeacherController::class,'MyClassSubject']);
+    Route::get('teacher/my_student',[StudentController::class,'MyStudent']);
+
 
 });
 

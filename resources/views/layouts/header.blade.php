@@ -47,7 +47,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -63,7 +63,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -79,7 +79,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -139,7 +139,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
@@ -148,7 +148,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Alexander Pierce</a>
@@ -231,31 +231,67 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ url('admin/class/list') }}" class="nav-link @if(Request::segment(2)=='class') active @endif">
-              <i class="nav-icon fas fa-th"></i>
+          @php 
+                  $active = "";
+                  $open = "";
+                  switch(Request::segment(2)){
+                    case "class":$open = "menu-is-opening menu-open";$active="active";break;
+                    case "assign_class_teacher":$open = "menu-is-opening menu-open";$active="active";break;
+                    case "subject":$open = "menu-is-opening menu-open";$active="active";break;
+                    case "assign_subject":$open = "menu-is-opening menu-open";$active="active";break;
+                    case "class_timetable":$open = "menu-is-opening menu-open";$active="active";break;
+                  }
+                  
+            @endphp 
+          <li class="nav-item {{$open}} ">
+        
+            <a href="#" class="nav-link {{$active}}">
+              <i class="nav-icon fas fa-tree"></i>
               <p>
-                Class
+                Academics
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('admin/subject/list') }}" class="nav-link @if(Request::segment(2)=='subject') active @endif">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Subject
-              </p>
-            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('admin/class/list') }}" class="nav-link @if(Request::segment(2)=='class') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Class</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/assign_class_teacher/list') }}" class="nav-link @if(Request::segment(2)=='assign_class_teacher') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Assign Class To Teacher</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/subject/list') }}" class="nav-link @if(Request::segment(2)=='subject') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Subject</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/assign_subject/list') }}" class="nav-link @if(Request::segment(2)=='assign_subject') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Assign Subject</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ url('admin/class_timetable/list') }}" class="nav-link @if(Request::segment(2)=='class_timetable') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Class Timetable</p>
+                </a>
+              </li>
+             
+            
+            </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="{{ url('admin/assign_subject/list') }}" class="nav-link @if(Request::segment(2)=='assign-subject') active @endif">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Assign Subject
-              </p>
-            </a>
-          </li>  
+          
+
+
 
           <li class="nav-item">
             <a href="{{ url('admin/change_password') }}" class="nav-link @if(Request::segment(2)=='assign-subject') active @endif">
@@ -284,6 +320,29 @@
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   My Acount
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ url('teacher/my_class_subject') }}" class="nav-link @if(Request::segment(2)=='my_class_subject') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  My Class & Subject
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+
+
+            <li class="nav-item">
+              <a href="{{ url('teacher/my_student') }}" class="nav-link @if(Request::segment(2)=='my_student') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  My Student
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>

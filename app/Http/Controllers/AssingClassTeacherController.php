@@ -16,6 +16,7 @@ class AssingClassTeacherController extends Controller
     {
 
         $data['header_title'] = "Assing Class Teacher";
+       
         $data['getRecord'] = AssignClassTeacherModel::getRecord();
 
   
@@ -61,7 +62,7 @@ class AssingClassTeacherController extends Controller
                 }
             }
 
-            return redirect('admin/assing_class_teacher/list')->with('success','Assign Class to Teacher Successfully');
+            return redirect('admin/assign_class_teacher/list')->with('success','Assign Class to Teacher Successfully');
        }
        else
        {
@@ -145,6 +146,7 @@ class AssingClassTeacherController extends Controller
 
     public function updateSingle(Request $request,$id)
     {
+
         $getAlreadyFirst = AssignClassTeacherModel::getAlreadyFirst($request->class_id,$request->teacher_id);
         if(!empty($getAlreadyFirst)){
             $getAlreadyFirst->status = $request->status;
@@ -158,12 +160,30 @@ class AssingClassTeacherController extends Controller
             $model->teacher_id = $request->teacher_id;
             $model->status = $request->status;
             $model->save();
-
             return redirect('admin/assign_class_teacher/list')->with('success','Assign Class to Teacher Successfully updated');
         }   
+
     }
 
 
+    public function delete($id)
+    {
+        $model = AssignClassTeacherModel::getSingle($id);
+        $model->delete();
+
+        return redirect('admin/assign_class_teacher/list')->with('success','Assign Class to Teacher Successfully deleted');
+
+
+    }
+
+
+    public function MyClassSubject()
+    {
+        $data['getRecord'] = AssignClassTeacherModel::getMyClassSubject(Auth::user()->id);
+        $data['header_title'] = 'My Class & Subject';
+        return view('teacher.my_class_subject',$data);
+
+    }
 
 
 }
