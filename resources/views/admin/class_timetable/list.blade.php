@@ -31,12 +31,10 @@
                             <option value="">Select</option>
                             @if(!empty($getSubject))
                               @foreach($getSubject as $subject)
-                                <option {{ (Request::get('subject_id') == $subject->id) ? 'selected' : '' }} value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                <option {{ (Request::get('subject_id') == $subject->subject_id) ? 'selected' : '' }} value="{{ $subject->subject_id }}">{{ $subject->subject_name }}</option>
                               @endforeach
                             @endif
-                        </select>
-                    
-                    
+                        </select>             
                     </div>
 
                     <div class="form-group col-md-4">
@@ -48,54 +46,61 @@
               </div>  
             </div>
 
-            <div class="card">
-              @include('_message')
-              <div class="card-header">
-                <h3 class="card-title">Assing class Teacher List</h3>
-                <a class="btn btn-primary float-right" href="{{ url('admin/assign_class_teacher/add') }}">Assign Class to Teacher</a>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Class Name</th>
-                      <th>Subject Name</th>
-                      <th>Status</th>
-                      <th>Created By</th>
-                      <th>Created Date</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach([] as $value)
-                    <tr>
-                      <td>{{ $value->id }}</td>  
-                      <td>{{ $value->class_name }}</td>  
-                      <td>{{ $value->subject_name }}</td>  
-                      <td>
-                          @if($value->status == 0)
-                            Active
-                          @else
-                            Inactive
-                          @endif    
-                      </td>  
-                      <td>{{ $value->created_by }}</td>  
-                      <td>{{ $value->created_date }}</td>  
-                      <td>
-                          <button>1</button>
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-           
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-               </div>
-            </div>
+             
+             
+
+
+            @if(!empty(Request::get('class_id')) && !empty(Request::get('subject_id')))
+
+            <form action="{{ url('/admin/class_timetable/add') }}" method="post">
+              @csrf
+              <input type="hidden" name="subject_id" value="{{ Request::get('subject_id') }}"/>
+              <input type="hidden" name="class_id" value="{{ Request::get('class_id') }}"/>
+              <div class="card">
+                <div class="card-header">
+
+                  <h3 class="card-title">Class Timetable</h3>
+                  @include('_message')
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped">
+                      <tr>
+                        <th>Week</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Room Number</th>
+                      </tr>
+                      <tbody>
+                        @php 
+                          $i=1;
+                        @endphp
+                        @foreach($week as $value)
+                            <tr>
+                                <th>
+                                  <input type="hidden" name="timetable[{{ $i }}][week_id]" value="{{ $value['week_id'] }}">
+                                  {{ $value['week_name'] }}
+                                </th>
+                                <td>
+                                  <input type="time" name="timetable[{{ $i }}][start_time]" value="{{ $value['start_time'] }}" class="form-control">
+                                </td>  
+                                <td>
+                                  <input type="time" name="timetable[{{ $i }}][end_time]" value="{{ $value['end_time'] }}" class="form-control">
+                                </td>  
+                                <td>
+                                  <input type="text" name="timetable[{{ $i }}][room_number]"   value="{{ $value['room_number'] }}" class="form-control">
+                                </td>  
+                            </tr>
+                            @php 
+                              $i++;
+                            @endphp 
+                        @endforeach
+                      </tbody>
+                    </table>
+                    <button class="btn btn-primary float-right">Submit</button>
+                </div>  
+              </div> 
+            </form>
+            @endif
             <!-- /.card -->
 
             
@@ -114,12 +119,13 @@
   @endsection
 
   @section('script')
-    <script type="text/javascript">
-    
-          $('.getClass').change(()=>{
-            let class_id = $(this).val();
-            alert(class_id);
-            $.ajax({
+        <script>
+            // Ваш JavaScript...
+            $(document).on('change','.getClass',function(){
+              let class_id = $(this).val();
+             
+
+              $.ajax({
               url: "{{ url('admin/class_timetable/get_subject')}}",
               type: "POST",
               data: {
@@ -131,7 +137,8 @@
                 $(".getSubject").html(response.html);
               }
             })
-          })
-          
-    </script>  
-  @endsection
+
+            });
+        </script>
+  
+@endsection

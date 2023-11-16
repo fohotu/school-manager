@@ -122,7 +122,8 @@ Route::group(['middleware' => 'admin'],function(){
     Route::get('/admin/assign_class_teacher/delete/{id}',[AssingClassTeacherController::class,'delete']);
    
     Route::get('/admin/class_timetable/list',[ClassTimetableController::class,'list']);
-    Route::get('/admin/class_timetable/get_subject',[ClassTimetableController::class,'get_subject']);
+    Route::post('/admin/class_timetable/get_subject',[ClassTimetableController::class,'get_subject']);
+    Route::post('/admin/class_timetable/add',[ClassTimetableController::class,'insert_update']);
 
 
 
@@ -155,6 +156,7 @@ Route::group(['middleware' => 'student'],function(){
 
     Route::get('student/account',[UserController::class,'MyAccount']);
     Route::post('student/account',[UserController::class,'UpdateMyAccountStudent']);   
+    Route::get('student/my_timetable',[ClassTimetableController::class,'MyTimetable']);   
 
 });
 

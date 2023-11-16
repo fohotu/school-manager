@@ -384,6 +384,14 @@
             
             </li>
 
+
+            <li class="nav-item">
+                <a href="{{ url('student/my_timetable') }}" class="nav-link @if(Request::segment(2)=='class_timetable') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>My Timetable</p>
+                </a>
+              </li>
+
             <li class="nav-item">
               <a href="{{ url('student/change_password') }}" class="nav-link @if(Request::segment(2)=='change_password') active @endif">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
