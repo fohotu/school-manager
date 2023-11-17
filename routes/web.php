@@ -141,6 +141,9 @@ Route::group(['middleware' => 'teacher'],function(){
     
     Route::get('teacher/my_class_subject',[AssingClassTeacherController::class,'MyClassSubject']);
     Route::get('teacher/my_student',[StudentController::class,'MyStudent']);
+    
+
+    Route::get('teacher/my_class_subject/class_timetable/{class_id}/{subject_id}',[ClassTimetableController::class,'MyTimetableTeacher']);
 
 
 });
@@ -171,6 +174,8 @@ Route::group(['middleware' => 'parent'],function(){
 
     Route::get('parent/my_student',[ParentController::class,'MyStudentParent']);
     Route::get('parent/my_student/subject/{student_id}',[ParentController::class,'ParentStudentsSubject']);
+   
+    Route::get('parent/my_student/subject/class_timetable/{class_id}/{subject_id}/{student_id}',[ClassTimetableController::class,'MyTimetableParent']);
 
 
 });

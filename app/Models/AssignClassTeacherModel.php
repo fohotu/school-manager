@@ -71,7 +71,8 @@ class AssignClassTeacherModel extends Model
 
     public static function getMyClassSubject($teacher_id)
     {
-        $model = self::select('assign_class_teacher.*','class.name as class_name','subject.name as subject_name','subject.type as subject_type')
+        $model = self::select('assign_class_teacher.*','class.name as class_name',
+        'subject.name as subject_name','subject.type as subject_type','class.id as class_id','subject.id as subject_id')
                 ->join('class','class.id','=','assign_class_teacher.class_id')
                 ->join('class_subject','class_subject.class_id','=','class.id')
                 ->join('subject','subject.id','=','class_subject.subject_id')
@@ -85,6 +86,14 @@ class AssignClassTeacherModel extends Model
                 ->get();
 
         return $model;        
+    }
+
+    public static function getMyTimeTable($class_id,$subject_id)
+    {
+        $getWeek = WeekModel::getWeekUseingName(date('1'));
+
+        return ClassSubjectTimetableModel::getRecordClassSubject($class_id,$subject_id,$getWeek->id);
+
     }
 
 

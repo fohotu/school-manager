@@ -23,10 +23,9 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                   
                       <th>Subject Name</th>
                       <th>Subject Type</th>
-                    
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -34,12 +33,13 @@
                     <tr>
                       <td>{{ $value->subject_name }}</td>
                       <td>{{ $value->subject_type }}</td>
-                     
-              
+                      <td>
+                        <a class="btn btn-primary" href="{{ url('parent/my_student/subject/class_timetable/'.$value->class_id.'/'.$value->subject_id.'/'.$getUser->id) }}">
+                          My Class Timetable
+                        </a>
+                      </td>
                     </tr>
-
                     @endforeach
-                    
                   </tbody>
                 </table>
            
