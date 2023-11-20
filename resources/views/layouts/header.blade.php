@@ -289,6 +289,35 @@
             </ul>
           </li>
 
+
+          <li class="nav-item">
+        
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-tree"></i>
+          <p>
+            Examinations
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          
+          <li class="nav-item">
+            <a href="{{ url('admin/exmaniations/exam/list') }}" class="nav-link @if(Request::segment(3)=='exam') active @endif">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Exam</p>
+            </a>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="{{ url('admin/examinations/exam_schedule') }}" class="nav-link @if(Request::segment(3)=='class') active @endif">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Exam Schedule</p>
+            </a>
+          </li>
+
+        </ul>
+      </li>
           
 
 
@@ -314,6 +343,11 @@
               </a>
             
             </li>
+
+                  
+
+         
+
 
             <li class="nav-item">
               <a href="{{ url('teacher/account') }}" class="nav-link @if(Request::segment(2)=='acount') active @endif">

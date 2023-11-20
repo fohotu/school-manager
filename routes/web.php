@@ -13,6 +13,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AssingClassTeacherController;
 use App\Http\Controllers\ClassTimetableController;
+use App\Http\Controllers\ExaminationsController;
 
 
 /*
@@ -126,6 +127,16 @@ Route::group(['middleware' => 'admin'],function(){
     Route::post('/admin/class_timetable/add',[ClassTimetableController::class,'insert_update']);
 
 
+    Route::get('admin/exmaniations/exam/list',[ExaminationsController::class,'examList']);
+    Route::get('admin/exmaniations/exam/add',[ExaminationsController::class,'examAdd']);
+    Route::post('admin/exmaniations/exam/add',[ExaminationsController::class,'examInsert']);
+    Route::get('admin/examinations/exam/edit/{id}',[ExaminationsController::class,'examEdit']);
+
+    Route::post('admin/examinations/exam/edit/{id}',[ExaminationsController::class,'examUpdate']);
+   
+    Route::get('admin/examinations/exam_schedule',[ExaminationsController::class,'examSchedule']);
+    Route::post('admin/examinations/exam_schedule_insert',[ExaminationsController::class,'examScheduleInsert']);
+
 
 });
 
@@ -144,6 +155,9 @@ Route::group(['middleware' => 'teacher'],function(){
     
 
     Route::get('teacher/my_class_subject/class_timetable/{class_id}/{subject_id}',[ClassTimetableController::class,'MyTimetableTeacher']);
+    
+    
+
 
 
 });
