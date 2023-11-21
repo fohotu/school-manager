@@ -9,6 +9,7 @@ use App\Models\WeekModel;
 use App\Models\User;
 use App\Models\ClassSubjectTimetableModel;
 use App\Models\SubjectModel;
+use App\Models\ExamScheduleModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Auth;
@@ -243,5 +244,8 @@ class ClassTimetableController extends Controller
         return view("parent.my_timetable",$data);
 
     }
+
+
+   
 
 }

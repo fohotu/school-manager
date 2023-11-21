@@ -14,6 +14,7 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AssingClassTeacherController;
 use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\ExaminationsController;
+use App\Http\Controllers\CalendarController;
 
 
 /*
@@ -156,7 +157,8 @@ Route::group(['middleware' => 'teacher'],function(){
 
     Route::get('teacher/my_class_subject/class_timetable/{class_id}/{subject_id}',[ClassTimetableController::class,'MyTimetableTeacher']);
     
-    
+    Route::get('teacher/my_exam_timetable',[ExaminationsController::class,'MyExamTimetableTeacher']);   
+
 
 
 
@@ -174,6 +176,10 @@ Route::group(['middleware' => 'student'],function(){
     Route::get('student/account',[UserController::class,'MyAccount']);
     Route::post('student/account',[UserController::class,'UpdateMyAccountStudent']);   
     Route::get('student/my_timetable',[ClassTimetableController::class,'MyTimetable']);   
+    
+    Route::get('student/my_exam_timetable',[ExaminationsController::class,'MyExamTimetable']);   
+   
+    Route::get('student/my_calendar',[CalendarController::class,'MyCalendar']);   
 
 });
 
@@ -190,7 +196,10 @@ Route::group(['middleware' => 'parent'],function(){
     Route::get('parent/my_student/subject/{student_id}',[ParentController::class,'ParentStudentsSubject']);
    
     Route::get('parent/my_student/subject/class_timetable/{class_id}/{subject_id}/{student_id}',[ClassTimetableController::class,'MyTimetableParent']);
-
+    Route::get('parent/my_student/exam_timetable/{student_id}',[ExaminationsController::class,'ParentMyExamTimetable']);
+    
+    Route::get('parent/my_student/calendar/{student_id}',[CalendarController::class,'MyCalendarParent']);
+ 
 
 });
 

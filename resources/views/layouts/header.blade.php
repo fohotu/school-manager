@@ -371,6 +371,17 @@
             
             </li>
 
+            <li class="nav-item">
+              <a href="{{ url('teacher/my_exam_timetable') }}" class="nav-link @if(Request::segment(2)=='my_exam_timetable') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  My Exam Timetable
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+
 
             <li class="nav-item">
               <a href="{{ url('teacher/my_student') }}" class="nav-link @if(Request::segment(2)=='my_student') active @endif">
@@ -390,6 +401,17 @@
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ url('student/my_calendar') }}" class="nav-link @if(Request::segment(2)=='my_subject') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  My Calendar
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -425,6 +447,14 @@
                   <p>My Timetable</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a href="{{ url('student/my_exam_timetable') }}" class="nav-link @if(Request::segment(2)=='class_timetable') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>My Exam Timetable</p>
+                </a>
+              </li>
+
 
             <li class="nav-item">
               <a href="{{ url('student/change_password') }}" class="nav-link @if(Request::segment(2)=='change_password') active @endif">

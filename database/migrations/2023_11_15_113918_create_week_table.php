@@ -16,6 +16,7 @@ class CreateWeekTable extends Migration
         Schema::create('week', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable()->default(null);
+            $table->integer('fullcalendar_day')->default(0);
             $table->timestamps();
         });
     }
