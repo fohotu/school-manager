@@ -138,6 +138,11 @@ Route::group(['middleware' => 'admin'],function(){
     Route::get('admin/examinations/exam_schedule',[ExaminationsController::class,'examSchedule']);
     Route::post('admin/examinations/exam_schedule_insert',[ExaminationsController::class,'examScheduleInsert']);
 
+    Route::get('admin/examinations/marks_register',[ExaminationsController::class,'marksRegister']);
+
+    Route::post('admin/examinations/submit_marks_register',[ExaminationsController::class,'submitMarksRegister']);
+    Route::post('admin/examinations/single_submit_marks_register',[ExaminationsController::class,'singleSubmitMarksRegister']);
+
 
 });
 
@@ -159,6 +164,8 @@ Route::group(['middleware' => 'teacher'],function(){
     
     Route::get('teacher/my_exam_timetable',[ExaminationsController::class,'MyExamTimetableTeacher']);   
 
+
+    Route::get('teacher/my_calendar',[CalendarController::class,'MyCalendarTeacher']);   
 
 
 

@@ -9,6 +9,7 @@ use App\Models\ClassSubjectModel;
 use App\Models\ExamScheduleModel;
 use App\Models\AssignClassTeacherModel;
 use App\Models\User;
+use App\Models\MarksRegisterModel;
 use Auth;
 
 class ExaminationsController extends Controller
@@ -309,6 +310,99 @@ class ExaminationsController extends Controller
         $data['header_title'] = 'My Exam Timetable';
         
         return view('parent.my_exam_timetable',$data);
+
+    }
+
+
+    public function marksRegister(Request $request)
+    {
+
+        $data['getClass'] = ClassModel::getClass();
+        $data['getExam'] = ExamModel::getExam();
+
+        if(!empty($request->get('exam_id')) && !empty($request->get('class_id')))
+        {
+            $data['getSubject'] = ExamScheduleModel::getSubject($request->get('exam_id'),$request->get('class_id'));
+            $data['getStudent'] = User::getStudentClass($request->get('class_id'));
+        }
+
+        $data['header_title'] = "Marks Register";
+
+        return view('admin.examinations.marks_register',$data);
+    
+    } 
+
+    public function submitMarksRegister(Request $request)
+    {
+        if(!empty($request->mark))
+        {   
+            foreach($request->mark as $mark)
+            {
+                $class_work = !empty($mark['class_work']) ? $mark['class_work'] : 0;
+                $home_work = !empty($mark['home_work']) ? $mark['home_work'] : 0;
+                $test_work = !empty($mark['test_work']) ? $mark['test_work'] : 0;
+                $exam = !empty($mark['exam']) ? $mark['exam'] : 0;
+
+                $getMark  = MarksRegisterModel::CheckAlreadyMark($request->student_id,$request->exam_id,$request->class_id,$mark['subject_id']);
+                
+                if(!empty($getMark))
+                {
+                    $model = $getMark; 
+                }
+                else
+                {
+                    $model = new MarksRegisterModel;
+                    $model->created_by = Auth::user()->id;
+                }
+                
+                $model->student_id = $request->student_id;
+                $model->exam_id = $request->exam_id;
+                $model->class_id = $request->class_id;
+                $model->subject_id = $mark['subject_id'];
+                $model->home_work = $home_work;
+                $model->test_work = $test_work;
+                $model->exam = $exam;
+                $model->save();
+
+
+            }
+
+        }
+
+        $json['message'] = "Mark Register successfully saved";
+        echo json_encode($json);
+    
+    }
+
+
+    public function singleSubmitMarksRegister(Request $request)
+    {
+        $class_work = !empty($mark['class_work']) ? $mark['class_work'] : 0;
+        $home_work = !empty($mark['home_work']) ? $mark['home_work'] : 0;
+        $test_work = !empty($mark['test_work']) ? $mark['test_work'] : 0;
+        $exam = !empty($mark['exam']) ? $mark['exam'] : 0;
+
+        $getMark  = MarksRegisterModel::CheckAlreadyMark($request->student_id,$request->exam_id,$request->class_id,$request->subject_id);
+     
+        if(!empty($getMark))
+        {
+            $model = $getMark; 
+        }
+        else
+        {
+            $model = new MarksRegisterModel;
+            $model->created_by = Auth::user()->id;
+        }
+        
+        $model->student_id = $request->student_id;
+        $model->exam_id = $request->exam_id;
+        $model->class_id = $request->class_id;
+        $model->subject_id = $request->subject_id;
+        $model->home_work = $home_work;
+        $model->test_work = $test_work;
+        $model->exam = $exam;
+        $model->save();
+        
 
     }
 
