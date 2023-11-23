@@ -17,19 +17,21 @@
                 <div class="card-body row">
                     <div class="form-group col-md-3">
                       <label for="exampleInputRounded0">Search Exam Schedule</label>
+                   
                       <select class="form-control" name="exam_id">
                         <option value="">Select</option>
                         @foreach($getExam as $exam)
-                        <option {{ (Request::get('exam_id') == $exam->id) ? 'selected' :''}} value="{{ $exam->id }}">{{ $exam->name }}</option>           
+                        <option {{ (Request::get('exam_id') == $exam->exam_id) ? 'selected' :''}} value="{{ $exam->exam_id }}">{{ $exam->exam_name }}</option>           
                         @endforeach
                     </select>
                     </div>
                     <div class="form-group col-md-3">
+                   
                       <label for="exampleInputRounded0">Class</code></label>
                       <select class="form-control" name="class_id">
                         <option value="">Select</option>
                         @foreach($getClass as $class)
-                        <option {{ (Request::get('class_id') == $class->id) ? 'selected' :''}} value="{{ $class->id }}">{{ $class->name }}</option>           
+                        <option {{ (Request::get('class_id') == $class->class_id) ? 'selected' :''}} value="{{ $class->class_id }}">{{ $class->class_name }}</option>           
                         @endforeach
                       </select> 
                     </div>
@@ -217,11 +219,11 @@
 @section('script')
   <script type="text/javascript">
     $('.SubmitForm').submit(function(e){
-      alert(1);
+   
       e.preventDefault();
       $.ajax({
         type:"POST",
-        url:"{{ url('admin/examinations/submit_marks_register') }}",
+        url:"{{ url('teacher/submit_marks_register') }}",
         data: $(this).serialize(),
         dataType: "json",
         success:function(data)
@@ -239,16 +241,21 @@
       let class_id = $(this).attr('data-class');
       let id = $(this).attr('data-schedule');
 
+     
 
-      let class_work  = $('#class_work_'.student_id+subject_id);
-      let home_work  = $('#home_work'.student_id+subject_id);
-      let test_work  = $('#test_work'.student_id+subject_id);
-      let exam  = $('#exam'.student_id+subject_id);
+      let class_work  = $('#class_work_'+student_id+subject_id).val();
+      let home_work  = $('#home_work_'+student_id+subject_id).val();
+      let test_work  = $('#test_work_'+student_id+subject_id).val();
+      let exam  = $('#exam_'+student_id+subject_id).val();
+
+     
       
       $.ajax({
         type:"POST",
-        url:"{{ url('admin/examinations/single_submit_marks_register') }}",
+        url:"{{ url('teacher/single_submit_marks_register') }}",
         data: {
+          "_token":"{{ csrf_token() }}",
+          id,
           student_id,
           subject_id,
           exam_id,

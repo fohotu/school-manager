@@ -11,6 +11,11 @@ class ExamScheduleModel extends Model
 
     protected $table = 'exam_schedule';
     
+    public static function getSingle($id)
+    {
+        return self::find($id);
+    }
+
     public static function getRecordSingle($exam_id,$class_id,$subject_id)
     {
         return ExamScheduleModel::where('exam_id','=',$exam_id)->where('class_id','=',$class_id)->where('subject_id','=',$subject_id)->first();
@@ -27,6 +32,17 @@ class ExamScheduleModel extends Model
         return ExamScheduleModel::select('exam_schedule.*','exam.name as exam_name')
         ->join('exam','exam.id','=','exam_schedule.exam_id')
         ->where('exam_schedule.class_id','=',$class_id)
+        ->groupBy('exam_schedule.exam_id')
+        ->orderBy('exam_schedule.id','desc')
+        ->get();
+    }
+
+    public static function getExamTeacher($teacher_id)
+    {
+        return ExamScheduleModel::select('exam_schedule.*','exam.name as exam_name')
+        ->join('exam','exam.id','=','exam_schedule.exam_id')
+        ->join('assign_class_teacher','assign_class_teacher.class_id','=','exam_schedule.class_id')
+        ->where('assign_class_teacher.teacher_id','=',$teacher_id)
         ->groupBy('exam_schedule.exam_id')
         ->orderBy('exam_schedule.id','desc')
         ->get();

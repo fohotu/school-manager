@@ -399,6 +399,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+            <a href="{{ url('teacher/marks_register') }}" class="nav-link @if(Request::segment(2)=='marks_register') active @endif">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Marks Register</p>
+            </a>
+          </li>
+
 
             <li class="nav-item">
               <a href="{{ url('teacher/my_student') }}" class="nav-link @if(Request::segment(2)=='my_student') active @endif">
@@ -440,6 +447,17 @@
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   My Subject
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ url('student/my_exam_result') }}" class="nav-link @if(Request::segment(2)=='my_exam_result') active @endif">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Exam Result
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>

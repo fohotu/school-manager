@@ -23,6 +23,8 @@ class CreateMarksRegister extends Migration
             $table->integer('home_work')->default(0);
             $table->integer('test_work')->default(0);
             $table->integer('exam')->default(0);
+            $table->integer('full_marks')->default(0);
+            $table->integer('passing_mark')->default(0);
             $table->integer('created_by')->nullable()->default(null);
             $table->timestamps();
         });

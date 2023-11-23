@@ -17,10 +17,11 @@
                 <div class="card-body row">
                     <div class="form-group col-md-3">
                       <label for="exampleInputRounded0">Search Exam Schedule</label>
+                   
                       <select class="form-control" name="exam_id">
                         <option value="">Select</option>
                         @foreach($getExam as $exam)
-                        <option {{ (Request::get('exam_id') == $exam->id) ? 'selected' :''}} value="{{ $exam->id }}">{{ $exam->name }}</option>           
+                        <option {{ (Request::get('exam_id') == $exam->exam_id) ? 'selected' :''}} value="{{ $exam->exam_id }}">{{ $exam->exam_name }}</option>           
                         @endforeach
                     </select>
                     </div>
@@ -29,7 +30,7 @@
                       <select class="form-control" name="class_id">
                         <option value="">Select</option>
                         @foreach($getClass as $class)
-                        <option {{ (Request::get('class_id') == $class->id) ? 'selected' :''}} value="{{ $class->id }}">{{ $class->name }}</option>           
+                        <option {{ (Request::get('class_id') == $class->class_id) ? 'selected' :''}} value="{{ $class->class_id }}">{{ $class->class_name }}</option>           
                         @endforeach
                       </select> 
                     </div>
