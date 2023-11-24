@@ -104,11 +104,15 @@
 
                                   $totalStudentMark = $totalStudentMark + $totalMark;
 
-                                
+                                  
+                                  
                                   @endphp 
                                 <td>
                                   <div style="margin-bottom:10px">
                                     Class work
+                                    <input type ="hidden" name="mark[{{ $i }}][full_marks]" value="{{ $subject->full_marks }}" />
+                                    <input type ="hidden" name="mark[{{ $i }}][passing_mark]" value="{{ $subject->passing_mark }}" />
+                                   
                                     <input type ="hidden" name="mark[{{ $i }}][id]" value="{{ $subject->id }}" />
                                     <input type ="hidden" name="mark[{{ $i }}][subject_id]" value="{{ $subject->subject_id }}" />
                                     <input type ="text" name="mark[{{ $i }}][class_work]" style="width:200px" 
@@ -135,11 +139,16 @@
                                   <div style="margin-bottom: 10px;">
                                       <b>Total Mark :</b>{{ $totalMark }}
                                       <b>Passing Mark :</b>{{ $subject->passing_mark }}
+                                      @php 
+                                        $getLoopGrade = App\Models\MarksGradeModel::getGrade($totalMark);
+                                      @endphp 
+                                      @if(!empty($getLoopGrade))
+                                        <b>Grade </b>{{ $getLoopGrade }}
+                                      @endif  
                                       @if($totalMark >= $subject->passing_mark)
                                         <span style="color:green;fonr-weight:bold">Pass</span>
                                       @else
                                         <span style="color:green;fonr-weight:bold">Fail</span>
-
                                         @php 
                                           $pass_fail_val = 1;
                                         @endphp 
@@ -173,9 +182,16 @@
                                       @php 
                                         $percentage = ($totalStudentMark * 100) / $totalFullMarks;
                                         $percentage = round($percentage);
+
+                                        $getGrade = App\Models\MarksGradeModel::getGrade($percentage);
                                       @endphp 
 
                                       <b>Percentage:</b> {{$percentage}}
+
+
+                                      @if(!empty($getGrade))
+                                        <b>Grade :</b> {{ $getGrade }} %  
+                                      @endif
 
                                       @if($pass_fail_val == 0)
                                         <span style="color:green;fonr-weight:bold">Pass</span>

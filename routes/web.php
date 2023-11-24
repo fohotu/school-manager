@@ -15,6 +15,8 @@ use App\Http\Controllers\AssingClassTeacherController;
 use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\ExaminationsController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\AttendanceController;
+
 
 
 /*
@@ -140,9 +142,24 @@ Route::group(['middleware' => 'admin'],function(){
 
     Route::get('admin/examinations/marks_register',[ExaminationsController::class,'marksRegister']);
 
+
     Route::post('admin/examinations/submit_marks_register',[ExaminationsController::class,'submitMarksRegister']);
     Route::post('admin/examinations/single_submit_marks_register',[ExaminationsController::class,'singleSubmitMarksRegister']);
 
+
+    Route::get('admin/examinations/marks_grade',[ExaminationsController::class,'marksGrade']);
+    
+    Route::get('admin/examinations/marks_grade/add',[ExaminationsController::class,'marksGradeAdd']);
+
+    Route::post('admin/examinations/marks_grade/add',[ExaminationsController::class,'marksGradeInsert']);
+
+    Route::get('admin/examinations/marks_grade/edit/{id}',[ExaminationsController::class,'marksGradeEdit']);
+    Route::post('admin/examinations/marks_grade/edit/{id}',[ExaminationsController::class,'marksGradeUpdate']);
+    Route::get('admin/examinations/marks_grade/delete/{id}',[ExaminationsController::class,'marksGradeDelete']);
+
+   
+   
+    Route::get('admin/attendance/student',[AttendanceController::class,'AttendanceStudent']);
 
 });
 
@@ -205,11 +222,14 @@ Route::group(['middleware' => 'parent'],function(){
 
     Route::get('parent/my_student',[ParentController::class,'MyStudentParent']);
     Route::get('parent/my_student/subject/{student_id}',[ParentController::class,'ParentStudentsSubject']);
-   
+     
+
     Route::get('parent/my_student/subject/class_timetable/{class_id}/{subject_id}/{student_id}',[ClassTimetableController::class,'MyTimetableParent']);
     Route::get('parent/my_student/exam_timetable/{student_id}',[ExaminationsController::class,'ParentMyExamTimetable']);
-    
+    Route::get('parent/my_student/exam_result/{student_id}',[ExaminationsController::class,'ParentMyExamResult']);
+
     Route::get('parent/my_student/calendar/{student_id}',[CalendarController::class,'MyCalendarParent']);
+   
  
 
 });

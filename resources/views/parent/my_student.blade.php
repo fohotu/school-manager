@@ -80,7 +80,9 @@
                         <td>
                             <a href ="{{ url('parent/my_student/subject/'.$value->id) }}" class="btn btn-success" >Subject</a>
                             <a href ="{{ url('parent/my_student/exam_timetable/'.$value->id) }}" class="btn btn-primary" >Exam Timetable</a>
+                            <a href ="{{ url('parent/my_student/exam_result/'.$value->id) }}" class="btn btn-primary" >Exam Result</a>
                             <a href ="{{ url('parent/my_student/calendar/'.$value->id) }}" class="btn btn-warning" >Calendar</a>
+
                         </td> 
               
                     </tr>

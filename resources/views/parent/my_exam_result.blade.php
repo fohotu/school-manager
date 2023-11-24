@@ -6,11 +6,18 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-         
+            <div class="col-md-6">
+                <h1>Exam Result ({{ $getStudent->name }} {{ $getStudent->last_name }})</h1>
+            </div>
+        </div>
+      </div>    
+    </section>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
           @foreach($getRecord as $value)
           <div class="col-md-12">
             <div class="card">
-            
               <div class="card-header">
                 <h3 class="card-title">{{ $value['exam_name'] }}</h3>
               </div>
@@ -68,13 +75,13 @@
                           <td colspan="2">
                               <b>Grand Total : {{ $total_score }} / {{ $full_marks }}</b>  
                           </td>  
-                          <td colspan="2">
-                              @php 
-                                $percentage = round((($total_score * 100) / $full_marks),2);
+                          @php 
+                                $percentage = round((($total_score *100) / $full_marks),2);
                                 $getGrade = App\Models\MarksGradeModel::getGrade($percentage);
-                              @endphp 
+                          @endphp 
+                          <td colspan="2">
                               <b>Percentage : {{ $percentage }} </b>  
-                          </td> 
+                          </td>
                           <td colspan="2">
                               <b>Grade : {{ $getGrade }} </b>  
                           </td> 
@@ -86,6 +93,7 @@
                                   @else
                                     <span style="color:red">Fail</span>
                                   @endif
+
                               </b>  
                           </td>   
                       </tr>  

@@ -10,6 +10,7 @@ use App\Models\ExamScheduleModel;
 use App\Models\AssignClassTeacherModel;
 use App\Models\User;
 use App\Models\MarksRegisterModel;
+use App\Models\MarksGradeModel;
 use Auth;
 
 class ExaminationsController extends Controller
@@ -346,6 +347,10 @@ class ExaminationsController extends Controller
                 $class_work = !empty($mark['class_work']) ? $mark['class_work'] : 0;
                 $home_work = !empty($mark['home_work']) ? $mark['home_work'] : 0;
                 $test_work = !empty($mark['test_work']) ? $mark['test_work'] : 0;
+                $full_marks = !empty($mark['full_marks']) ? $mark['full_marks'] : 0;
+                $passing_mark = !empty($mark['passing_mark']) ? $mark['passing_mark'] : 0;
+
+
                 $exam = !empty($mark['exam']) ? $mark['exam'] : 0;
 
                 $total_mark = $class_work + $home_work + $test_work + $exam;
@@ -372,6 +377,10 @@ class ExaminationsController extends Controller
                     $model->home_work = $home_work;
                     $model->test_work = $test_work;
                     $model->exam = $exam;
+
+                    $model->full_marks = $full_marks;
+                    $model->passing_marks = $passing_mark;
+
                     $model->save();
 
                 }
@@ -479,15 +488,141 @@ class ExaminationsController extends Controller
     {
         $result = [];
         $getExam = MarksRegisterModel::getExam(Auth::user()->id);
-
+        
         foreach($getExam as $value)
         {
             $dataE = [];
             $dataE['exam_name'] = $value->exam_name;
             $getExamSubject = MarksRegisterModel::getExamSubject($value->exam_id, Auth::user()->id);
+        
+            foreach($getExamSubject as $exam)
+            {
+                $dataS = [];
+                $total_score = $exam['class_work']+$exam['test_work']+$exam['home_work']+$exam['exam'];
+                $dataS['subject_name'] = $exam['subject_name'];
+                $dataS['class_work'] = $exam['class_work'];
+                $dataS['test_work'] = $exam['test_work'];
+                $dataS['home_work'] = $exam['home_work'];
+                $dataS['exam'] = $exam['exam'];
+                $dataS['total_score'] = $total_score;
+                $dataS['passing_mark'] = $exam['passing_mark'];
+                $dataS['full_marks'] = $exam['full_marks'];
+                $dataSubject [] = $dataS;
+            }
+
+            $dataE['subject'] = $dataSubject;
+            $result[] = $dataE;
         }
 
+        $data['getRecord'] = $result;
         $data['header_title'] = "My Exam Result";
+     //   dd($result);
         return view('student.my_exam_result',$data);
+    
     }
+
+    public function ParentMyExamResult($student_id)
+    {
+        $result = [];
+        $getExam = MarksRegisterModel::getExam($student_id);
+        $data['getStudent'] = User::getSingle($student_id);
+        $dataSubject = [];
+        foreach($getExam as $value)
+        {
+            $dataE = [];
+            $dataE['exam_name'] = $value->exam_name;
+            $getExamSubject = MarksRegisterModel::getExamSubject($value->exam_id, Auth::user()->id);
+            
+            foreach($getExamSubject as $exam)
+            {
+                $dataS = [];
+                $total_score = $exam['class_work']+$exam['test_work']+$exam['home_work']+$exam['exam'];
+                $dataS['subject_name'] = $exam['subject_name'];
+                $dataS['class_work'] = $exam['class_work'];
+                $dataS['test_work'] = $exam['test_work'];
+                $dataS['home_work'] = $exam['home_work'];
+                $dataS['exam'] = $exam['exam'];
+                $dataS['total_score'] = $total_score;
+                $dataS['passing_mark'] = $exam['passing_mark'];
+                $dataS['full_marks'] = $exam['full_marks'];
+                $dataSubject [] = $dataS;
+            }
+
+            $dataE['subject'] = $dataSubject;
+            $result[] = $dataE;
+        }
+
+        $data['getRecord'] = $result;
+        $data['header_title'] = "My Exam Result";
+        return view('parent.my_exam_result',$data);
+    }
+
+
+    public function marksGrade()
+    {
+        $data['getRecord'] = MarksGradeModel::getRecord();
+        $data['header_title'] = "Marks Grade List";
+        return view('admin.examinations.marks_grade.list',$data);
+    }
+
+    public function marksGradeAdd()
+    {
+
+        $data['header_title'] = "Grade Add";
+        return view('admin.examinations.marks_grade.add',$data);
+    }
+
+    public function marksGradeInsert(Request $request)
+    {
+        $model = new MarksGradeModel;
+        $model->name = trim($request->name);
+        $model->percent_from = trim($request->percent_from);
+        $model->percent_to = trim($request->percent_to);
+        $model->created_by = Auth::user()->id;
+        $model->save();
+
+        return redirect('admin/examinations/marks_grade')->with('success','Marks Grade successufully created');
+        
+    }
+
+    public function marksGradeEdit($id)
+    {
+        $data['getRecord'] = MarksGradeModel::getSingle($id);
+        $data['header_title'] = "Grade Edit";
+        return view('admin.examinations.marks_grade.edit',$data);
+    }
+
+
+    public function marksGradeUpdate(Request $request,$id)
+    {
+
+
+        $model = MarksGradeModel::getSingle($id);
+        
+
+        $model->name = trim($request->name);
+        $model->percent_from = trim($request->percent_from);
+        $model->percent_to = trim($request->percent_to);
+
+        $model->save();
+
+        return redirect('admin/examinations/marks_grade')->with('success','Marks Grade successufully updated');
+    
+    }
+
+
+    public function delete($id)
+    {
+        $getRecord = MarksGradeModel::getSingle($id);
+        if(!empty($getRecord))
+        {
+            $getRecord->delete();
+            return redirect()->back()->with('success','Marks Grade successfully deleted');
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
 }
