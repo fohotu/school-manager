@@ -31,6 +31,6 @@ class CreateAssignClassTeacher extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_assign_class_teacher');
+        Schema::dropIfExists('assign_class_teacher');
     }
 }

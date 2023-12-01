@@ -16,7 +16,7 @@
               <form method="get" action="">
                 <div class="card-body row">
                     <div class="form-group col-md-3">
-                      <label for="exampleInputRounded0">Search Exam Schedule</label>
+                      <label for="exampleInputRounded0">Exam</label>
                       <select class="form-control" name="exam_id">
                         <option value="">Select</option>
                         @foreach($getExam as $exam)

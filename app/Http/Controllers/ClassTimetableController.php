@@ -72,6 +72,8 @@ class ClassTimetableController extends Controller
     }
 
 
+
+
     public function get_subject(Request $request)
     {
 

@@ -17,7 +17,7 @@ class CreateSubjectTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->int('created_by');
+            $table->integer('created_by');
             $table->tinyInteger('status');
             $table->tinyInteger('is_delete');
             $table->timestamps();

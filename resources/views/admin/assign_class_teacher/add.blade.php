@@ -9,7 +9,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Add Parent</h3>
+                <h3 class="card-title">Assign class to teacher</h3>
               </div>
               <!-- /.card-header -->
               <form method="post" enctype="multipart/form-data">

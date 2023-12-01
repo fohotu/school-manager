@@ -325,7 +325,10 @@ class ExaminationsController extends Controller
         {
             $data['getSubject'] = ExamScheduleModel::getSubject($request->get('exam_id'),$request->get('class_id'));
             $data['getStudent'] = User::getStudentClass($request->get('class_id'));
+        
+        
         }
+
 
         $data['header_title'] = "Marks Register";
 
